@@ -7,9 +7,14 @@
     <!-- placeholders for the theme switcher -->
     <link rel='stylesheet' id='theme_stylesheet'>
     <link rel='stylesheet' id='icon_stylesheet'>
+    <link rel="stylesheet" href="http://jschr.github.io/bootstrap-modal/css/bootstrap-modal.css" />
 
     <style>[class*="foundicon-"] {font-family: GeneralFoundicons;font-style: normal;}</style>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+    <script src='http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js'></script>
     <script src='dist/jsoneditor.js'></script>
+    <script src='http://jschr.github.io/bootstrap-modal/js/bootstrap-modalmanager.js'></script>
+    <script src='http://jschr.github.io/bootstrap-modal/js/bootstrap-modal.js'></script>
 
     <script>
     /**
@@ -219,10 +224,11 @@ editor.on("change",  function() {
                 },
                 pets: {
                     type: "array",
-                    format: "table",
+                    format: "grid",
                     title: "Pets",
                     uniqueItems: true,
                     items: {
+                        render:["name", "type"],
                         type: "object",
                         title: "Pet",
                         properties: {
@@ -354,7 +360,7 @@ editor.on("change",  function() {
 
         JSONEditor.defaults.options.theme = theme;
 
-        document.getElementById('theme_stylesheet').href = mapping[theme];
+        document.getElementById('theme_stylesheet').href = 'http:' + mapping[theme];
         document.getElementById('theme_switcher').value = JSONEditor.defaults.options.theme;
 
         if(!no_reload) reload(true);
@@ -373,7 +379,7 @@ editor.on("change",  function() {
 
         JSONEditor.defaults.options.iconlib = iconlib;
 
-        document.getElementById('icon_stylesheet').href = mapping[iconlib] || '';
+        document.getElementById('icon_stylesheet').href = 'http:' + mapping[iconlib] || '';
         document.getElementById('icon_switcher').value = JSONEditor.defaults.options.iconlib;
 
         if(!no_reload) reload(true);
