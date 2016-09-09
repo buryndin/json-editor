@@ -14,7 +14,7 @@ JSONEditor.defaults.templates["default"] = function() {
         var p = matches[i].replace(/[{}]+/g,'').trim().split('.');
         var n = p.length;
         var func;
-        
+
         if(n > 1) {
           var cur;
           func = function(vars) {
@@ -32,7 +32,7 @@ JSONEditor.defaults.templates["default"] = function() {
             return vars[p];
           };
         }
-        
+
         replacements.push({
           s: matches[i],
           r: func
