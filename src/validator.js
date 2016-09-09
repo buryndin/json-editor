@@ -488,31 +488,32 @@ JSONEditor.Validator = Class.extend({
       }
 
       // `additionalProperties`
-      if(typeof schema.additionalProperties !== "undefined") {
-        for(i in value) {
-          if(!value.hasOwnProperty(i)) continue;
-          if(!validated_properties[i]) {
-            // No extra properties allowed
-            if(!schema.additionalProperties) {
-              errors.push({
-                path: path,
-                property: 'additionalProperties',
-                message: this.translate('error_additional_properties', [i])
-              });
-              break;
-            }
-            // Allowed
-            else if(schema.additionalProperties === true) {
-              break;
-            }
-            // Must match schema
-            // TODO: incompatibility between version 3 and 4 of the spec
-            else {
-              errors = errors.concat(this._validateSchema(schema.additionalProperties,value[i],path+'.'+i));
-            }
-          }
-        }
-      }
+      // временно отключил проверку лишних свойств
+      // if(typeof schema.additionalProperties !== "undefined") {
+      //   for(i in value) {
+      //     if(!value.hasOwnProperty(i)) continue;
+      //     if(!validated_properties[i]) {
+      //       // No extra properties allowed
+      //       if(!schema.additionalProperties) {
+      //         errors.push({
+      //           path: path,
+      //           property: 'additionalProperties',
+      //           message: this.translate('error_additional_properties', [i])
+      //         });
+      //         break;
+      //       }
+      //       // Allowed
+      //       else if(schema.additionalProperties === true) {
+      //         break;
+      //       }
+      //       // Must match schema
+      //       // TODO: incompatibility between version 3 and 4 of the spec
+      //       else {
+      //         errors = errors.concat(this._validateSchema(schema.additionalProperties,value[i],path+'.'+i));
+      //       }
+      //     }
+      //   }
+      // }
 
       // `dependencies`
       if(schema.dependencies) {
