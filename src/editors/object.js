@@ -58,14 +58,14 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
     // Sort editors by propertyOrder
     this.property_order = Object.keys(this.editors);
-    this.property_order = this.property_order.sort(function(a,b) {
-      var ordera = self.editors[a].schema.propertyOrder;
-      var orderb = self.editors[b].schema.propertyOrder;
-      if(typeof ordera !== "number") ordera = 1000;
-      if(typeof orderb !== "number") orderb = 1000;
+    // this.property_order = this.property_order.sort(function(a,b) {
+    //   var ordera = self.editors[a].schema.propertyOrder;
+    //   var orderb = self.editors[b].schema.propertyOrder;
+    //   if(typeof ordera !== "number") ordera = 1000;
+    //   if(typeof orderb !== "number") orderb = 1000;
 
-      return ordera - orderb;
-    });
+    //   return ordera - orderb;
+    // });
 
     var container;
 
