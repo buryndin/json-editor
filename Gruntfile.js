@@ -83,6 +83,7 @@ module.exports = function(grunt) {
     jshint: {
       options: {
         browser: true,
+        jquery: true,
         indent: 2,
         nonbsp: true,
         nonew: true,

@@ -1,9 +1,13 @@
-var JSONEditor = function(element,options) {
-  if (!(element instanceof Element)) {
-    throw new Error('element should be an instance of Element');
+var JSONEditor = function(element, options) {
+  if (!options.modal) {
+    if (!(element instanceof Element)) {
+      throw new Error("element should be an instance of Element");
+    }
+    this.element = element;
+  } else {
+    this.element = document.createElement("div");
   }
-  options = $extend({},JSONEditor.defaults.options,options||{});
-  this.element = element;
+  options = $extend({}, JSONEditor.defaults.options, options || {});
   this.options = options;
   this.init();
 };
@@ -582,6 +586,44 @@ JSONEditor.prototype = {
     });
 
     return extended;
+  },
+  showInModal: function(caption, callback) {
+    var modal = document.createElement("div");
+    modal.className = "modal fade";
+    modal.setAttribute('tabindex', -1);
+    modal.setAttribute('data-focus-on', "input:first");
+    modal.id = "modalEdit";
+    modal.innerHTML = "<div class='modal-dialog'>" +
+        "<div class='modal-content'>" +
+          "<div class='modal-header'>" +
+            "<button type='button' class='close' data-dismiss='modal'>&times;</button>" +
+            "<h4 class='modal-title'>" + caption + "</h4>" +
+          "</div>" +
+          "<div class='modal-body' id='modalEditBody'>" +
+          "</div>" +
+          "<div class='modal-footer'>" +
+            "<button type='button' class='btn btn-default' data-dismiss='modal' id='cancelEdit'>Close</button>" +
+            "<button type='button' class='btn btn-primary' id='saveEdit'>OK</button>" +
+          "</div>" +
+        "</div>" +
+      "</div>";
+    $("body").prepend(modal);
+    $("#modalEditBody").prepend(this.element);
+    var self = this;
+    $("#saveEdit").on("click", function() {
+      var value = self.getValue();
+      $("#modalEdit").modal("hide");
+      callback(value);
+    });
+    $("#cancelEdit").on("click", function() {
+      $("#modalEdit").modal("hide");
+    });
+    $('#modalEdit').on('hidden.bs.modal', function() {
+      self.destroy();
+      var el = $('#modalEdit').get(0);
+      el.parentNode.removeChild(el);
+    });
+    $("#modalEdit").modal({keyboard: true});
   }
 };
 
