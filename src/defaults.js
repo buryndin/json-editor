@@ -194,6 +194,7 @@ JSONEditor.defaults.languages.en = {
     * Title on Delete Row buttons, short version (no parameter with the object title)
     */
   button_delete_row_title_short: "Delete",
+  button_edit_row_title_short: "Edit",
   /**
     * Title on Collapse buttons
     */
@@ -281,6 +282,12 @@ JSONEditor.defaults.resolvers.unshift(function(schema) {
   // Type `array` with format set to `table`
   if(schema.type == "array" && schema.format == "table") {
     return "table";
+  }
+});
+JSONEditor.defaults.resolvers.unshift(function(schema) {
+  // Type `array` with format set to `table`
+  if(schema.type == "array" && schema.format == "grid") {
+    return "grid";
   }
 });
 // Use the `select` editor for dynamic enumSource enums

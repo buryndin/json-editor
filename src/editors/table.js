@@ -428,13 +428,7 @@ JSONEditor.defaults.editors.table = JSONEditor.defaults.editors.array.extend({
     // Add "new row" and "delete last" buttons below editor
     this.add_row_button = this.getButton(this.getItemTitle(),'add',this.translate('button_add_row_title',[this.getItemTitle()]));
     this.add_row_button.addEventListener('click',function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      self.addRow();
-      self.refreshValue();
-      self.refreshRowButtons();
-      self.onChange(true);
+      self.addRowEvent(e);
     });
     self.controls.appendChild(this.add_row_button);
 
@@ -459,5 +453,14 @@ JSONEditor.defaults.editors.table = JSONEditor.defaults.editors.array.extend({
       self.onChange(true);
     });
     self.controls.appendChild(this.remove_all_rows_button);
+  },
+  addRowEvent: function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.addRow();
+    this.refreshValue();
+    this.refreshRowButtons();
+    this.onChange(true);
   }
 });
