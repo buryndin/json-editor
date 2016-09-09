@@ -101,6 +101,11 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
 
         this.input = this.theme.getRangeInput(min,max,step);
       }
+      // password Input
+      else if(this.format === 'password') {
+        this.input_type = 'password';
+        this.input = this.theme.getFormInputField(this.format);
+      }
       // Source Code
       else if([
           'actionscript',
@@ -427,9 +432,10 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
     var self = this;
 
     if(this.jsoneditor.options.show_errors === "always") {}
-    else if(!this.is_dirty && this.previous_error_setting===this.jsoneditor.options.show_errors) return;
-
-    this.previous_error_setting = this.jsoneditor.options.show_errors;
+    else if (!this.is_dirty && this.previous_error_setting !== this.jsoneditor.options.show_errors) {
+      this.previous_error_setting = this.jsoneditor.options.show_errors;
+      return;
+    }
 
     var messages = [];
     $each(errors,function(i,error) {
