@@ -302,9 +302,11 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     }
     // If the object should be rendered as a div
     else {
-      this.header = document.createElement('span');
-      this.header.textContent = this.getTitle();
-      this.title = this.theme.getHeader(this.header);
+      if (!this.jsoneditor.options.disable_title) {
+        this.header = document.createElement("span");
+        this.header.textContent = this.getTitle();
+      }
+      this.title = this.theme.getHeader(this.header || "");
       this.container.appendChild(this.title);
       this.container.style.position = 'relative';
 
