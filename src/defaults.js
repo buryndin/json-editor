@@ -271,6 +271,11 @@ JSONEditor.defaults.resolvers.unshift(function(schema) {
     if(window.FileReader) return "upload";
   }
 });
+JSONEditor.defaults.resolvers.unshift(function(schema) {
+  if(schema.type === "string" && schema.format === "image") {
+    if(window.FileReader) return "image";
+  }
+});
 // Use the table editor for arrays with the format set to `table`
 JSONEditor.defaults.resolvers.unshift(function(schema) {
   // Type `array` with format set to `table`

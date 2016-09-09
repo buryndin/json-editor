@@ -41,6 +41,7 @@ module.exports = function(grunt) {
           'src/editors/multiselect.js',
           'src/editors/base64.js',
           'src/editors/upload.js',
+          'src/editors/image.js',
           'src/editors/checkbox.js',
           'src/editors/array/selectize.js',
 
@@ -61,7 +62,7 @@ module.exports = function(grunt) {
 
           // End the closure
           'src/outro.js'
-        ],
+        ]
       }
     },
     uglify: {
