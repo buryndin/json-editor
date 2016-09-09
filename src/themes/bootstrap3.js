@@ -54,7 +54,12 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
       group.appendChild(input);
     }
 
-    if(description) group.appendChild(description);
+    if(description) {
+      //более угарный тултип
+      //http://stackoverflow.com/questions/25531397/bootstrap-tooltip-not-working-with-font-awesome-icon
+      input.setAttribute("data-toggle", "tooltip");
+      input.setAttribute("title", description);
+    }
 
     return group;
   },
@@ -65,10 +70,7 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
     return el;
   },
   getFormInputDescription: function(text) {
-    var el = document.createElement('p');
-    el.className = 'help-block';
-    el.innerHTML = text;
-    return el;
+    return text;
   },
   getHeaderButtonHolder: function() {
     var el = this.getButtonHolder();
