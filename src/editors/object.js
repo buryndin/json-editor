@@ -312,9 +312,16 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
       // Edit JSON modal
       this.editjson_holder = this.theme.getModal();
-      this.editjson_textarea = this.theme.getTextareaInput();
-      this.editjson_textarea.style.height = '170px';
-      this.editjson_textarea.style.width = '300px';
+      if (window.ace) {
+        this.editjson_textarea = document.createElement("pre");
+        this.ace_editor = window.ace.edit(this.editjson_textarea);
+        this.ace_editor.setTheme("ace/theme/twilight");
+        this.ace_editor.getSession().setMode("ace/mode/json");
+      } else {
+        this.editjson_textarea = this.theme.getTextareaInput();
+      }
+      this.editjson_textarea.style.height = "500px";
+      this.editjson_textarea.style.width = "600px";
       this.editjson_textarea.style.display = 'block';
       this.editjson_save = this.getButton('Save','save','Save');
       this.editjson_save.addEventListener('click',function(e) {
@@ -494,7 +501,12 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     this.editjson_holder.style.top = this.editjson_button.offsetTop + this.editjson_button.offsetHeight+"px";
 
     // Start the textarea with the current value
-    this.editjson_textarea.value = JSON.stringify(this.getValue(),null,2);
+    var json = JSON.stringify(this.getValue(), null, 2);
+    if (this.ace_editor) {
+      this.ace_editor.setValue(json);
+    } else {
+      this.editjson_textarea.value = json;
+    }
 
     // Disable the rest of the form while editing JSON
     this.disable();
@@ -515,7 +527,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     if(!this.editjson_holder) return;
 
     try {
-      var json = JSON.parse(this.editjson_textarea.value);
+      var json = JSON.parse(this.ace_editor && this.ace_editor.getValue() || this.editjson_textarea.value);
       this.setValue(json);
       this.hideEditJSON();
     }
