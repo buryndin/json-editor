@@ -1,18 +1,14 @@
 JSONEditor.defaults.editors.table = JSONEditor.defaults.editors.array.extend({
   register: function() {
     this._super();
-    if(this.rows) {
-      for(var i=0; i<this.rows.length; i++) {
-        this.rows[i].register();
-      }
+    for(var i in this.rows) {
+      this.rows[i].register();
     }
   },
   unregister: function() {
     this._super();
-    if(this.rows) {
-      for(var i=0; i<this.rows.length; i++) {
-        this.rows[i].unregister();
-      }
+    for(var i in this.rows) {
+      this.rows[i].unregister();
     }
   },
   getNumColumns: function() {
@@ -252,7 +248,7 @@ JSONEditor.defaults.editors.table = JSONEditor.defaults.editors.array.extend({
     if(!this.value.length) {
       this.delete_last_row_button.style.display = 'none';
       this.remove_all_rows_button.style.display = 'none';
-      this.table.style.display = 'none';
+      this.table.style.display = Object.keys(this.value || 0).length ? '' : 'none';
     }
     else if(this.value.length === 1) {
       this.table.style.display = '';
@@ -313,9 +309,9 @@ JSONEditor.defaults.editors.table = JSONEditor.defaults.editors.array.extend({
     });
     this.serialized = JSON.stringify(this.value);
   },
-  addRow: function(value) {
+  addRow: function(value, key) {
     var self = this;
-    var i = this.rows.length;
+    var i = key || this.rows.length;
 
     self.rows[i] = this.getElementEditor(i);
 
@@ -329,15 +325,20 @@ JSONEditor.defaults.editors.table = JSONEditor.defaults.editors.array.extend({
       self.rows[i].delete_button.addEventListener('click',function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var i = this.getAttribute('data-i')*1;
+        var i = this.getAttribute('data-i');
 
         var value = self.getValue();
 
-        var newval = [];
+        var newval = Array.isArray(value) ? [] : {};
         $each(value,function(j,row) {
-          if(j===i) return; // If this is the one we're deleting
-          newval.push(row);
+          if(j==i) return; // If this is the one we're deleting
+          if (Array.isArray(value)) {
+            newval.push(row);
+          } else {
+            newval[j] = row;
+          }
         });
+        self.rows[i].destroy();
         self.setValue(newval);
         self.onChange(true);
       });

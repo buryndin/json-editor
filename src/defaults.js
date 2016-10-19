@@ -285,9 +285,13 @@ JSONEditor.defaults.resolvers.unshift(function(schema) {
   }
 });
 JSONEditor.defaults.resolvers.unshift(function(schema) {
-  // Type `array` with format set to `table`
   if(schema.type == "array" && schema.format == "grid") {
     return "grid";
+  }
+});
+JSONEditor.defaults.resolvers.unshift(function(schema) {
+  if(schema.type == "hash") {
+    return "hash";
   }
 });
 // Use the `select` editor for dynamic enumSource enums

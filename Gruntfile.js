@@ -36,6 +36,7 @@ module.exports = function(grunt) {
           'src/editors/array.js',
           'src/editors/table.js',
           'src/editors/grid.js',
+          'src/editors/hash.js',
           'src/editors/multiple.js',
           'src/editors/enum.js',
           'src/editors/select.js',
@@ -73,7 +74,6 @@ module.exports = function(grunt) {
         dest: 'dist/jsoneditor.min.js'
       },
       options: {
-        preserveComments: 'some',
         sourceMap: true
       }
     },

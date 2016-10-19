@@ -3,7 +3,6 @@ JSONEditor.defaults.editors.gridRow = JSONEditor.AbstractEditor.extend({
     this._super();
 
     this.editors = {};
-    this.cached_editors = {};
     var self = this;
     this.valueFull = {};
 
@@ -92,5 +91,20 @@ JSONEditor.defaults.editors.gridRow = JSONEditor.AbstractEditor.extend({
 
   getValue: function() {
     return this.valueFull;
-  }
+  },
+
+  destroy: function() {
+    $each(this.editors, function(i,el) {
+      el.destroy();
+    });
+    if(this.editor_holder) this.editor_holder.innerHTML = '';
+    if(this.title && this.title.parentNode) this.title.parentNode.removeChild(this.title);
+    if(this.error_holder && this.error_holder.parentNode) this.error_holder.parentNode.removeChild(this.error_holder);
+
+    this.editors = null;
+    if(this.editor_holder && this.editor_holder.parentNode) this.editor_holder.parentNode.removeChild(this.editor_holder);
+    this.editor_holder = null;
+
+    this._super();
+  },
 });

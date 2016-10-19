@@ -122,10 +122,10 @@ JSONEditor.defaults.editors.grid = JSONEditor.defaults.editors.table.extend({
     self.onChange();
 
   },
-  addRow: function(value) {
-    this._super(value);
+  addRow: function(value, key) {
+    this._super(value, key);
     var self = this;
-    var i = this.rows.length - 1;
+    var i = key || this.rows.length - 1;
     var controls_holder = self.rows[i].table_controls;
 
     if (!this.hide_edit_buttons) {
