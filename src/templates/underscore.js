@@ -3,8 +3,11 @@ JSONEditor.defaults.templates.underscore = function() {
 
   return {
     compile: function(template) {
+      var compiled = window._.template(template);
       return function(context) {
-        return window._.template(template, context);
+        if (Object.keys(context).length > 1) {
+          return compiled(context);
+        }
       };
     }
   };

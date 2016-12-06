@@ -290,7 +290,7 @@ JSONEditor.defaults.resolvers.unshift(function(schema) {
   }
 });
 JSONEditor.defaults.resolvers.unshift(function(schema) {
-  if(schema.type == "hash") {
+  if(schema.type == "object" && schema.format == "hash") {
     return "hash";
   }
 });

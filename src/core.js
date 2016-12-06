@@ -623,6 +623,9 @@ JSONEditor.prototype = {
       var el = $('#modalEdit').get(0);
       el.parentNode.removeChild(el);
     });
+    $('#modalEdit').on('shown.bs.modal', function() {
+      $('input:text:visible:first', this).focus();
+    });
     $("#modalEdit").modal({keyboard: true});
   }
 };

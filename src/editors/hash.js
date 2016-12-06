@@ -49,7 +49,7 @@ JSONEditor.defaults.editors.hash = JSONEditor.defaults.editors.grid.extend({
     var self = this;
     //TODO: spike for disabling index field
     this.schema.items.properties.$index.readonly = !!startVal;
-     var editor = new JSONEditor(null, {
+    var editor = new JSONEditor(null, {
       schema: this.schema.items,
       startval: startVal,
       modal: true,

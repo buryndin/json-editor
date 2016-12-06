@@ -148,6 +148,7 @@ JSONEditor.defaults.editors.grid = JSONEditor.defaults.editors.table.extend({
       modal: true,
       disable_edit_json: this.jsoneditor.options.disable_edit_json,
       disable_properties: this.jsoneditor.options.disable_properties,
+      disable_array_reorder: this.jsoneditor.options.disable_array_reorder,
       required_by_default: this.jsoneditor.options.required_by_default,
       no_additional_properties: this.jsoneditor.options.no_additional_properties
     });
